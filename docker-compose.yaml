@@ -1,0 +1,6 @@
+services:
+  dashboard-server:
+    build: server/
+    container_name: dashboard-server
+    ports: ["3000:3000"]
+    restart: unless-stopped
