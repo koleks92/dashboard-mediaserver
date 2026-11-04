@@ -4,7 +4,15 @@ import { Text, View, StyleSheet } from "react-native";
 const serverIp = "http://100.90.196.58:3000";
 
 type ServerStatus = {
-  pong: boolean;
+  status: string
+};
+
+type SystemStatus = {
+  cpuLoad: number;
+  memTotal: number;
+  memAvailable: number;
+  hostname: string;
+  uptime: number;
 };
 
 export default function Index() {
@@ -14,7 +22,7 @@ export default function Index() {
 
   const getData = async () => {
     try {
-      const res = await fetch(serverIp + "/pong", {
+      const res = await fetch(serverIp + "/health", {
         headers: {
           Authorization: "Bearer " + process.env.EXPO_PUBLIC_API_TOKEN,
         },
@@ -23,7 +31,7 @@ export default function Index() {
         throw new Error("HTTP " + res.status);
       }
       const answer: ServerStatus = await res.json();
-      console.log(answer)
+      console.log(answer);
       setServerStatus(answer);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
@@ -54,7 +62,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Text>Server status: {serverStatus?.pong ? "true" : "false"}</Text>
+      <Text>Server status: {serverStatus?.status}</Text>
     </View>
   );
 }
