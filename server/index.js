@@ -45,8 +45,8 @@ async function getData() {
 }
 
 
-app.get("/system", (req, res) => {
-  const data = getData();
+app.get("/system", async (req, res) => {
+  const data = await getData();
 
   res.json(data);
 })
