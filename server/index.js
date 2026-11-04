@@ -1,8 +1,11 @@
 const express = require("express");
+const { getSystemStats } = require("./util/systemInfo");
+
 const app = express();
 const port = 3000;
 
 const apiToken = process.env.API_TOKEN;
+
 
 if (!apiToken || apiToken.length !== 64) {
   console.error("Invalid token");
@@ -31,11 +34,22 @@ function requireAuth(req, res, next) {
   }
 }
 
+
+
 app.use(requireAuth);
 
-app.get("/pong", (req, res) => {
-  res.json({ pong: true });
-});
+// Get Data function
+async function getData() {
+  const results = await getSystemStats();
+  return results
+}
+
+
+app.get("/system", (req, res) => {
+  const data = getData();
+
+  res.json(data);
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
