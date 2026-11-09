@@ -6,10 +6,14 @@ async function getSystemStats() {
   let memAvailable;
   let hostname;
   let disks;
+
+  // Ignored type disks
+  const ignoredTypes = ["tmpfs", "devtmpfs", "squashfs"];
+
   try {
     // CPU
-    const currentLoad = await si.currentLoad()
-    cpuLoad = currentLoad.currentLoad
+    const currentLoad = await si.currentLoad();
+    cpuLoad = currentLoad.currentLoad;
 
     // Memory
     const memory = await si.mem();
@@ -21,7 +25,16 @@ async function getSystemStats() {
     hostname = host.hostname;
 
     // Disks
-    // TODO
+    const disksData = await si.fsSize();
+    const disks = disksData
+      .filter((d) => d.size > 0 && !ignoredTypes.includes(d.type))
+      .map((d) => ({
+        mount: d.mount,
+        total: d.size,
+        used: d.used,
+        free: d.available,
+      }));
+
 
     return {
       cpuLoad: Math.round(cpuLoad),
@@ -29,14 +42,13 @@ async function getSystemStats() {
       memAvailable: memAvailable,
       memUsed: memTotal - memAvailable,
       hostname: hostname,
-      uptime: si.time().uptime
-    }
-;
+      uptime: si.time().uptime,
+      disks: disks,
+    };
   } catch (err) {
     console.error(err);
     throw err;
   }
-
 }
 
 module.exports = { getSystemStats };
