@@ -7,8 +7,10 @@ async function getSystemStats() {
   let hostname;
   let disks;
 
-  // Ignored type disks
-  const ignoredTypes = ["tmpfs", "devtmpfs", "squashfs"];
+  const wantedMounts = {
+    "/": "/",
+    "/host/mnt/media": "/mnt/media",
+  };
 
   try {
     // CPU
@@ -27,14 +29,13 @@ async function getSystemStats() {
     // Disks
     const disksData = await si.fsSize();
     const disks = disksData
-      .filter((d) => d.size > 0 && !ignoredTypes.includes(d.type))
+      .filter((d) => Object.hasOwn(wantedMounts, d.mount))
       .map((d) => ({
-        mount: d.mount,
+        mount: wantedMounts[d.mount],
         total: d.size,
         used: d.used,
         free: d.available,
       }));
-
 
     return {
       cpuLoad: Math.round(cpuLoad),
