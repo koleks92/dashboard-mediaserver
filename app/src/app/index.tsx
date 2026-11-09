@@ -18,9 +18,10 @@ type SystemStatus = {
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [serverStatus, setServerStatus] = useState<ServerStatus>();
+  const [systemStatus, setSystemStatus] = useState<SystemStatus>();
   const [error, setError] = useState<string>();
 
-  const getData = async () => {
+  const getHealth = async () => {
     try {
       const res = await fetch(serverIp + "/health", {
         headers: {
@@ -31,7 +32,6 @@ export default function Index() {
         throw new Error("HTTP " + res.status);
       }
       const answer: ServerStatus = await res.json();
-      console.log(answer);
       setServerStatus(answer);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
@@ -40,8 +40,30 @@ export default function Index() {
     }
   };
 
+  const getSystem = async () => {
+        try {
+      const res = await fetch(serverIp + "/system", {
+        headers: {
+          Authorization: "Bearer " + process.env.EXPO_PUBLIC_API_TOKEN,
+        },
+      });
+      if (!res.ok) {
+        throw new Error("HTTP " + res.status);
+      }
+      const answer: SystemStatus = await res.json();
+      setSystemStatus(answer);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    getData();
+    // Check connection
+    getHealth();
+    // Get system data
+    getSystem();
   }, []);
 
   if (loading) {
@@ -63,6 +85,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text>Server status: {serverStatus?.status}</Text>
+      <Text>System status: {systemStatus?.memTotal}</Text>
     </View>
   );
 }
