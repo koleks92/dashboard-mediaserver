@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { NativeTabs } from "expo-router/native-tabs";
 
 const serverIp = "http://100.90.196.58:3000";
 
 type ServerStatus = {
-  status: string
+  status: string;
 };
 
 type SystemStatus = {
@@ -13,9 +14,10 @@ type SystemStatus = {
   memAvailable: number;
   hostname: string;
   uptime: number;
+  disks: { mount: string; total: number; used: number; free: number }[];
 };
 
-export default function Index() {
+export default function Overview() {
   const [loading, setLoading] = useState(true);
   const [serverStatus, setServerStatus] = useState<ServerStatus>();
   const [systemStatus, setSystemStatus] = useState<SystemStatus>();
@@ -41,7 +43,7 @@ export default function Index() {
   };
 
   const getSystem = async () => {
-        try {
+    try {
       const res = await fetch(serverIp + "/system", {
         headers: {
           Authorization: "Bearer " + process.env.EXPO_PUBLIC_API_TOKEN,
@@ -52,12 +54,13 @@ export default function Index() {
       }
       const answer: SystemStatus = await res.json();
       setSystemStatus(answer);
+      console.log(answer.disks);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     // Check connection
