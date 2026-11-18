@@ -3,9 +3,31 @@ import { Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "./constants/colors";
 import { Icon } from "./components/icons/icons";
+import {
+  useFonts,
+  Manrope_400Regular,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+} from "@expo-google-fonts/manrope";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+
+SplashScreen.preventAutoHideAsync(); // outside the component, at the top level
 
 export default function RootLayout() {
+  const [loaded, error] = useFonts({
+    Manrope_400Regular,
+    Manrope_600SemiBold,
+    Manrope_700Bold,
+  });
+
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    if (loaded || error) SplashScreen.hideAsync();
+  }, [loaded, error]);
+
+  if (!loaded && !error) return null;
 
   return (
     <Tabs
@@ -66,14 +88,14 @@ export default function RootLayout() {
         name="overview"
         options={{
           title: "Overview",
-          tabBarIcon: ({ color, size }) => <Icon name="info" size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon name="info" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="performance"
         options={{
           title: "Performance",
-          tabBarIcon: ({ color, size }) => <Icon name="activity" size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon name="activity" size={size} color={color} />,
         }}
       />
     </Tabs>

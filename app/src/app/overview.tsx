@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { NativeTabs } from "expo-router/native-tabs";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ScreenView from "./components/UI/ScreenView";
+import CustomText from "./components/UI/CustomText";
 
 const serverIp = "http://100.90.196.58:3000";
 
@@ -71,28 +74,29 @@ export default function Overview() {
 
   if (loading) {
     return (
-      <View style={styles.container}>
+    <ScreenView>
         <Text>Loading...</Text>
-      </View>
+    </ScreenView>
     );
   }
 
   if (error) {
     return (
-      <View style={styles.container}>
+    <ScreenView>
         <Text>Error: {error}</Text>
-      </View>
+    </ScreenView>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Server status: {serverStatus?.status}</Text>
-      <Text>System status: {systemStatus?.memTotal}</Text>
-    </View>
+
+    <ScreenView>
+      <CustomText>Server status: {serverStatus?.status}</CustomText>
+      <CustomText>System status: {systemStatus?.memTotal}</CustomText>
+    </ScreenView>
+
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
