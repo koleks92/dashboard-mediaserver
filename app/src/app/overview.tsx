@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { NativeTabs } from "expo-router/native-tabs";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native";
 import ScreenView from "./components/UI/ScreenView";
 import CustomText from "./components/UI/CustomText";
+import Top from "./components/UI/Top";
 
 const serverIp = "http://100.90.196.58:3000";
 
@@ -16,7 +15,6 @@ type SystemStatus = {
   memTotal: number;
   memAvailable: number;
   hostname: string;
-  uptime: number;
   disks: { mount: string; total: number; used: number; free: number }[];
 };
 
@@ -25,6 +23,10 @@ export default function Overview() {
   const [serverStatus, setServerStatus] = useState<ServerStatus>();
   const [systemStatus, setSystemStatus] = useState<SystemStatus>();
   const [error, setError] = useState<string>();
+
+  const onRefreshHandler = () => {
+    console.log("Refresh");
+  };
 
   const getHealth = async () => {
     try {
@@ -74,27 +76,24 @@ export default function Overview() {
 
   if (loading) {
     return (
-    <ScreenView>
-        <Text>Loading...</Text>
-    </ScreenView>
+      <ScreenView>
+        <CustomText>Loading...</CustomText>
+      </ScreenView>
     );
   }
 
   if (error) {
     return (
-    <ScreenView>
-        <Text>Error: {error}</Text>
-    </ScreenView>
+      <ScreenView>
+        <CustomText>Error: {error}</CustomText>
+      </ScreenView>
     );
   }
 
   return (
-
     <ScreenView>
-      <CustomText>Server status: {serverStatus?.status}</CustomText>
-      <CustomText>System status: {systemStatus?.memTotal}</CustomText>
+      <Top hostname="SuperServer" onRefresh={onRefreshHandler} />
     </ScreenView>
-
   );
 }
 const styles = StyleSheet.create({
