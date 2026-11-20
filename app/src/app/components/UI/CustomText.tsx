@@ -4,6 +4,7 @@ import { rfs } from "../../../../util/responsiveFontSizing";
 
 type CustomTextProps = TextProps & {
   bold?: boolean;
+  xxl?: boolean;
   xl?: boolean;
   l?: boolean;
   m?: boolean;
@@ -16,19 +17,21 @@ type CustomTextProps = TextProps & {
 export default function CustomText({
   children,
   bold,
+  xxl,
   xl,
   l,
   m,
   s,
   xs,
   secondary,
-  muted
+  muted,
 }: CustomTextProps) {
   return (
     <Text
       style={[
         styles.root,
         bold && styles.bold,
+        xxl && styles.xxl,
         xl && styles.xl,
         l && styles.l,
         m && styles.m,
@@ -51,23 +54,26 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+  xxl: {
+    fontSize: rfs(18),
+  },
   xl: {
-    fontSize: rfs(48),
-  },
-  l: {
-    fontSize: rfs(36),
-  },
-  m: {
-    fontSize: rfs(24),
-  },
-  s: {
     fontSize: rfs(16),
   },
-  xs: {
+  l: {
+    fontSize: rfs(14),
+  },
+  m: {
     fontSize: rfs(12),
   },
+  s: {
+    fontSize: rfs(10),
+  },
+  xs: {
+    fontSize: rfs(8),
+  },
   secondary: {
-    color: colors.secondaryText
+    color: colors.secondaryText,
   },
   muted: {
     color: colors.mutedText,
