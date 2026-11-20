@@ -1,0 +1,8 @@
+- Context
+- Gradient background, Gradient card background
+- Refresh function
+- Card components:
+    - Overview
+    - System
+    - Storage 
+- Charts
