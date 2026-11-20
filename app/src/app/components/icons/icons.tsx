@@ -1,4 +1,5 @@
 import React from "react";
+import { ColorValue } from "react-native";
 import Svg, { Path, Rect, Circle, Ellipse } from "react-native-svg";
 
 export type IconName =
@@ -61,12 +62,10 @@ const shapes: Record<IconName, React.ReactNode> = {
       <Path d="M12 9v7" />
     </>
   ),
-  wifi: (
-    <Path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 20h.01" />
-  ),
+  wifi: <Path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 20h.01" />,
 };
 
-type IconProps = { name: IconName; size?: number; color?: string };
+type IconProps = { name: IconName; size?: number; color?: ColorValue };
 
 export function Icon({ name, size = 20, color = "#FFFFFF" }: IconProps) {
   return (
@@ -75,7 +74,7 @@ export function Icon({ name, size = 20, color = "#FFFFFF" }: IconProps) {
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      stroke={color}
+      stroke={color ?? "#FFFFFF"}
       strokeWidth={1.8}
       strokeLinecap="round"
       strokeLinejoin="round"
