@@ -10,6 +10,9 @@ export default function ScreenView({ children }: PropsWithChildren) {
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        backgroundColor: colors.background
+        backgroundColor: colors.background,
+        paddingTop: 24,
+        paddingHorizontal: 16,
+
     }
 })
