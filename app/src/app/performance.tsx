@@ -1,12 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
-import { NativeTabs } from "expo-router/native-tabs";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native";
 import ScreenView from "./components/UI/ScreenView";
+import Top from "./components/UI/Top";
 
 export default function Overview() {
+  const onRefreshHandler = () => {
+    console.log("Refresh");
+  };
+
   return (
     <ScreenView>
-      <Text>Performance</Text>
+      <Top hostname="SuperServer" onRefresh={onRefreshHandler} />
     </ScreenView>
   );
 }
