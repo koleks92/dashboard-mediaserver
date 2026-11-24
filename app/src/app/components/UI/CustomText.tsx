@@ -12,6 +12,7 @@ type CustomTextProps = TextProps & {
   xs?: boolean;
   secondary?: boolean;
   muted?: boolean;
+  mono?: boolean;
 };
 
 export default function CustomText({
@@ -25,6 +26,7 @@ export default function CustomText({
   xs,
   secondary,
   muted,
+  mono,
 }: CustomTextProps) {
   return (
     <Text
@@ -39,6 +41,7 @@ export default function CustomText({
         xs && styles.xs,
         secondary && styles.secondary,
         muted && styles.muted,
+        mono && styles.mono,
       ]}
     >
       {children}
@@ -77,5 +80,8 @@ const styles = StyleSheet.create({
   },
   muted: {
     color: colors.mutedText,
+  },
+  mono: {
+    fontFamily: "DMMono_400Regular",
   },
 });
