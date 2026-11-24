@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import ScreenView from "./components/UI/ScreenView";
-import Top from "./components/UI/Top";
+import TopBar from "./components/UI/TopBar";
+import StatusBar from "./components/UI/StautsBar";
 
 export default function Overview() {
   const onRefreshHandler = () => {
@@ -9,7 +10,8 @@ export default function Overview() {
 
   return (
     <ScreenView>
-      <Top hostname="SuperServer" onRefresh={onRefreshHandler} />
+      <TopBar hostname="SuperServer" onRefresh={onRefreshHandler} />
+      <StatusBar />
     </ScreenView>
   );
 }

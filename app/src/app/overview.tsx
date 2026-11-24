@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import ScreenView from "./components/UI/ScreenView";
 import CustomText from "./components/UI/CustomText";
-import Top from "./components/UI/Top";
+import TopBar from "./components/UI/TopBar";
 
 const serverIp = "http://100.90.196.58:3000";
 
@@ -92,7 +92,7 @@ export default function Overview() {
 
   return (
     <ScreenView>
-      <Top hostname="SuperServer" onRefresh={onRefreshHandler} />
+      <TopBar hostname="SuperServer" onRefresh={onRefreshHandler} />
     </ScreenView>
   );
 }
