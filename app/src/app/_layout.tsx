@@ -9,8 +9,13 @@ import {
   Manrope_600SemiBold,
   Manrope_700Bold,
 } from "@expo-google-fonts/manrope";
+import {
+  DMMono_400Regular,
+  DMMono_500Medium,
+} from "@expo-google-fonts/dm-mono";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { sizes } from "./constants/sizes";
 
 SplashScreen.preventAutoHideAsync(); // outside the component, at the top level
 
@@ -19,6 +24,8 @@ export default function RootLayout() {
     Manrope_400Regular,
     Manrope_600SemiBold,
     Manrope_700Bold,
+    DMMono_400Regular,
+    DMMono_500Medium,
   });
 
   const insets = useSafeAreaInsets();
@@ -45,7 +52,7 @@ export default function RootLayout() {
           marginHorizontal: 24,
           bottom: Math.max(insets.bottom, 16),
           height: 64,
-          borderRadius: 32,
+          borderRadius: sizes.borderRadius,
           backgroundColor: colors.cardBackground,
           borderWidth: 1,
           borderColor: colors.border,
@@ -74,7 +81,7 @@ export default function RootLayout() {
                 props.style,
                 selected && {
                   backgroundColor: colors.activeCard,
-                  borderRadius: 24,
+                  borderRadius: 12,
                 },
               ]}
             >
@@ -88,14 +95,18 @@ export default function RootLayout() {
         name="overview"
         options={{
           title: "Overview",
-          tabBarIcon: ({ color, size }) => <Icon name="info" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="info" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="performance"
         options={{
           title: "Performance",
-          tabBarIcon: ({ color, size }) => <Icon name="activity" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="activity" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>
