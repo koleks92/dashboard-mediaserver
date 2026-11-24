@@ -8,5 +8,6 @@ export const colors = {
   secondaryText: "#9FA7B6",
   mutedText: "#687183",
   mint: "#52E0B4",
+  red: "#FF6B7D",
   violet: "#8B7CF6",
 };
