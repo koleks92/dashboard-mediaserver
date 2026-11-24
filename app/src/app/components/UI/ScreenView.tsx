@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { sizes } from "@/app/constants/sizes";
 
 export default function ScreenView({ children }: PropsWithChildren) {
  return   <LinearGradient
@@ -24,5 +25,6 @@ screen: {
     flex: 1,
     paddingTop: 24,
     paddingHorizontal: 16,
+    gap: sizes.gap,
   }
 });
