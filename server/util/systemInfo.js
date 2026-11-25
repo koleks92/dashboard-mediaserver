@@ -17,6 +17,12 @@ async function getSystemStats() {
     const currentLoad = await si.currentLoad();
     cpuLoad = currentLoad.currentLoad;
 
+    const cpuInfo = await si.cpu();
+    cpuBrand = cpuInfo.brand;
+    cpuCores = cpuInfo.physicalCores;
+    cpuThreads = cpuInfo.cores;
+    cpuSpeed = cpuInfo.speed;
+
     // Memory
     const memory = await si.mem();
     memTotal = memory.total;
@@ -40,6 +46,10 @@ async function getSystemStats() {
 
     return {
       cpuLoad: Math.round(cpuLoad),
+      cpuBrand: cpuBrand,
+      cpuCores: cpuCores,
+      cpuThreads: cpuThreads,
+      cpuSpeed: cpuSpeed,
       memTotal: memTotal,
       memAvailable: memAvailable,
       memUsed: memTotal - memAvailable,

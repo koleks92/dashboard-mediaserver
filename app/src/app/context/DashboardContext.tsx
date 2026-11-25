@@ -8,7 +8,6 @@ import React, {
   useContext,
 } from "react";
 
-
 const serverIp = "http://100.90.196.58:3000";
 
 // Context
@@ -32,8 +31,14 @@ type ServerStatus = {
 
 type SystemStatus = {
   cpuLoad: number;
+  cpuBrand: string;
+  cpuCores: number;
+  cpuThreads: number;
+  cpuSpeed: number;
   memTotal: number;
   memAvailable: number;
+  memUsed: number;
+  uptime: number;
   hostname: string;
   ip: string;
   disks: { mount: string; total: number; used: number; free: number }[];
@@ -48,7 +53,6 @@ type SystemContextValue = {
   onRefreshHandler: () => Promise<void>;
 };
 
-
 // Provider
 const DashboardProvider = ({ children }: PropsWithChildren) => {
   const [loading, setLoading] = useState(false);
@@ -57,11 +61,11 @@ const DashboardProvider = ({ children }: PropsWithChildren) => {
   const [error, setError] = useState<string>();
 
   // Refresh data
-  const onRefreshHandler = async() => {
+  const onRefreshHandler = async () => {
     const answer = await getHealth();
 
     if (answer?.status === "ok") {
-        const systemAnswer = await getSystem();
+      const systemAnswer = await getSystem();
     }
   };
 
@@ -103,7 +107,7 @@ const DashboardProvider = ({ children }: PropsWithChildren) => {
       const time = Date.now();
       setSystemStatus({
         ...answer,
-        lastUpdated: time
+        lastUpdated: time,
       });
       return answer;
     } catch (err) {
