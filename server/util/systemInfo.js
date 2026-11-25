@@ -5,7 +5,7 @@ async function getSystemStats() {
   let memTotal;
   let memAvailable;
   let hostname;
-  let disks;
+  let ip;
 
   const wantedMounts = {
     "/": "/",
@@ -24,7 +24,8 @@ async function getSystemStats() {
 
     // Host
     const host = await si.osInfo();
-    hostname = host.hostname;
+    hostname = process.env.SERVER_NAME ?? host.hostname;
+    ip = process.env.SERVER_IP;
 
     // Disks
     const disksData = await si.fsSize();
@@ -43,6 +44,7 @@ async function getSystemStats() {
       memAvailable: memAvailable,
       memUsed: memTotal - memAvailable,
       hostname: hostname,
+      ip: ip,
       uptime: si.time().uptime,
       disks: disks,
     };
