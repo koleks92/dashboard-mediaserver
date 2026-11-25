@@ -25,10 +25,9 @@ export default function SquareCards({ type }: SquareCardsProps) {
     if (type === "cpu") {
       value = systemStatus.cpuLoad;
     } else {
-      const memUsedBytes = systemStatus.memTotal - systemStatus.memAvailable;
-      memUsedGb = memUsedBytes / GB;
+      memUsedGb = systemStatus.memUsed / GB;
       memTotalGb = systemStatus.memTotal / GB;
-      value = Math.round((memUsedBytes / systemStatus.memTotal) * 100);
+      value = Math.round((systemStatus.memUsed / systemStatus.memTotal) * 100);
     }
   }
 
@@ -62,8 +61,14 @@ export default function SquareCards({ type }: SquareCardsProps) {
               <CustomText xxl bold mono>
                 {value}
               </CustomText>
-              <CustomText m> %</CustomText>
+              <CustomText m muted mono>
+                {" "}
+                %
+              </CustomText>
             </View>
+            <CustomText s muted>
+              {systemStatus?.cpuSpeed} GHz x {systemStatus?.cpuCores} cores
+            </CustomText>
           </View>
         ) : (
           <View style={styles.valuesView}>
