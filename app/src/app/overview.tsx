@@ -4,10 +4,14 @@ import CustomText from "./components/UI/CustomText";
 import TopBar from "./components/UI/TopBar";
 import { useDashboard } from "./context/DashboardContext";
 import StatusBar from "./components/UI/StautsBar";
+import TitleBar from "./components/UI/TitleBar";
+import * as Device from "expo-device";
 
 export default function Overview() {
   const { loading, error, onRefreshHandler, systemStatus, serverStatus } =
     useDashboard();
+
+  const greeting = "Hello, " + Device.deviceName;
 
   if (loading || !systemStatus || !serverStatus) {
     return (
@@ -33,6 +37,7 @@ export default function Overview() {
         ip={systemStatus.ip}
         lastUpdated={systemStatus.lastUpdated}
       />
+      <TitleBar title="OVERVIEW" titleBig={greeting} />
     </ScreenView>
   );
 }
