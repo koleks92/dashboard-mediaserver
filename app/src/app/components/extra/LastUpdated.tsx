@@ -32,5 +32,5 @@ export default function LastUpdated({ lastUpdated }: { lastUpdated?: number }) {
     timePassedString = Math.floor(timePassed / 3600) + "h ago";
   }
 
-  return <CustomText>{timePassedString}</CustomText>;
+  return <CustomText mono>{timePassedString}</CustomText>;
 }
