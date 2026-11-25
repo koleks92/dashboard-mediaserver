@@ -17,7 +17,7 @@ export default function TopBar({ hostname, onRefresh }: TopBarProps) {
       </View>
       <View style={styles.titleView}>
         <CustomText s muted bold>MEDIA SERVER</CustomText>
-        <CustomText bold xxl>{hostname}</CustomText>
+        <CustomText bold xxl>{hostname ? hostname : "Unknown"}</CustomText>
       </View>
       <Pressable style={styles.refreshView} onPress={onRefresh}>
         <Icon name="refresh" size={rfs(24)} color={colors.mutedText} />

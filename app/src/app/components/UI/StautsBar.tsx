@@ -2,14 +2,16 @@ import { colors } from "@/app/constants/colors";
 import { sizes } from "@/app/constants/sizes";
 import { View, StyleSheet } from "react-native";
 import CustomText from "./CustomText";
+import LastUpdated from "../extra/LastUpdated";
 
 type StatusBarProps = {
   status: boolean;
   ip: string;
-  updated: string;
+  lastUpdated: number;
 };
 
-export default function StatusBar({ status, ip, updated }: StatusBarProps) {
+export default function StatusBar({ status, ip, lastUpdated }: StatusBarProps) {
+
   return (
     <View style={styles.root}>
       <View style={styles.left}>
@@ -27,7 +29,9 @@ export default function StatusBar({ status, ip, updated }: StatusBarProps) {
         <CustomText s muted mono>
           UPDATED
         </CustomText>
-        <CustomText s>{updated ? updated : "Error"}</CustomText>
+        <CustomText s>
+          <LastUpdated lastUpdated={lastUpdated} />
+        </CustomText>
       </View>
     </View>
   );
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     padding: sizes.padding,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: colors.cardBackground
+    backgroundColor: colors.cardBackground,
   },
   dot: {
     width: 10,
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 2,
     gap: sizes.gapMedium,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   right: {
     flex: 1,
