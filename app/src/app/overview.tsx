@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ScreenView from "./components/UI/ScreenView";
 import CustomText from "./components/UI/CustomText";
 import TopBar from "./components/UI/TopBar";
@@ -6,12 +6,16 @@ import { useDashboard } from "./context/DashboardContext";
 import StatusBar from "./components/UI/StautsBar";
 import TitleBar from "./components/UI/TitleBar";
 import * as Device from "expo-device";
+import SquareCards from "./components/overview/SquareCards";
+import { sizes } from "./constants/sizes";
 
 export default function Overview() {
   const { loading, error, onRefreshHandler, systemStatus, serverStatus } =
     useDashboard();
 
+  // Greeting
   const greeting = "Hello, " + Device.deviceName;
+
 
   if (loading || !systemStatus || !serverStatus) {
     return (
@@ -38,6 +42,10 @@ export default function Overview() {
         lastUpdated={systemStatus.lastUpdated}
       />
       <TitleBar title="OVERVIEW" titleBig={greeting} />
+      <View style={styles.squareCards}>
+        <SquareCards type="cpu"/>
+        <SquareCards type="mem" />
+      </View>
     </ScreenView>
   );
 }
@@ -46,5 +54,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  squareCards: {
+    flexDirection: "row",
+    gap: sizes.gap,
   },
 });
