@@ -83,5 +83,6 @@ const styles = StyleSheet.create({
   },
   mono: {
     fontFamily: "DMMono_400Regular",
+    letterSpacing: 1
   },
 });
