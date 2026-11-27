@@ -45,7 +45,7 @@ export default function SquareCards({ type }: SquareCardsProps) {
         {/* PERCENTAGE GRAPH */}
         <View>
           <RingGauge value={value / 100} size={rfs(48)} color={iconColor}>
-            <CustomText xs bold>
+            <CustomText s bold>
               {value} %
             </CustomText>
           </RingGauge>
@@ -82,7 +82,7 @@ export default function SquareCards({ type }: SquareCardsProps) {
               </CustomText>
             </View>
             <CustomText s muted>
-              of {memTotalGb.toFixed(1)} GB
+              of {memTotalGb.toFixed(1)} GB available
             </CustomText>
           </View>
         )}
