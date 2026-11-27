@@ -36,7 +36,7 @@ export default function SquareCards({ type }: SquareCardsProps) {
   const title = type === "cpu" ? "CPU LOAD" : "MEMORY USED";
 
   return (
-    <CardMain>
+    <CardMain style={{ flex: 1 }}>
       <View style={styles.top}>
         {/* ICON */}
         <View style={styles.iconView}>
