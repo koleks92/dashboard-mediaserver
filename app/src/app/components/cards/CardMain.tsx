@@ -1,20 +1,24 @@
 import { colors } from "@/app/constants/colors";
 import { sizes } from "@/app/constants/sizes";
-import { PropsWithChildren } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { ReactNode } from "react";
 
-export default function CardMain({ children }: PropsWithChildren) {
-  return <View style={styles.root}>{children}</View>;
+type CardMainProps = {
+  children: ReactNode;
+  style?: StyleProp<ViewStyle>;
+};
+
+export default function CardMain({ children, style }: CardMainProps) {
+  return <View style={[styles.root, style]}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     backgroundColor: colors.cardBackground,
     borderWidth: 1,
     borderRadius: sizes.borderRadius,
     borderColor: colors.border,
     padding: sizes.padding,
-    gap: sizes.gap
+    gap: sizes.gap,
   },
 });
